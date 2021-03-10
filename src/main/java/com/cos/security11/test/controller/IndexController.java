@@ -17,6 +17,7 @@ import org.springframework.web.servlet.view.RedirectView;
 import com.cos.security11.model.User;
 import com.cos.security11.model.UserForm;
 import com.cos.security11.repository.UserRepo;
+import com.cos.security11.security.PrincipalDetail;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -33,11 +34,23 @@ public class IndexController {
 	@GetMapping("/")
 	public ModelAndView index(Authentication auth) {
 		
-		Optional.ofNullable(auth.getAuthorities()).orElse(Collections.emptyList())
+		
+		
+		ModelAndView model = new ModelAndView();
+		model.setViewName("index");
+		
+		String name = "?";
+		if(auth != null) {
+			Optional.ofNullable(auth.getAuthorities()).orElse(Collections.emptyList())
 			.stream()
 			.forEach(a -> log.info(" role {}", a.getAuthority()));
+			
+			PrincipalDetail detail = (PrincipalDetail) auth.getPrincipal();
+			name = detail.getUsername();
+		}
+		model.addObject("name", name);
 		
-		return new ModelAndView("index");
+		return model;
 //		return "index";
 	}
 	
