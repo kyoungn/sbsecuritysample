@@ -51,6 +51,12 @@
         <li class="nav-item" sec:authorize="hasRole('ROLE_ADMIN')" >
           <a class="nav-link" href="#" th:href="@{~/admin}" tabindex="-1" >Admin</a>
         </li>
+        <li class="nav-item" >
+          <a class="nav-link" href="#" th:href="@{~/info}" tabindex="-1" >@Secured</a>
+        </li>
+        <li class="nav-item" >
+          <a class="nav-link" href="#" th:href="@{~/data}" tabindex="-1" >@PreAuthorize</a>
+        </li>
       </ul>
       
 	<form class="d-flex">
@@ -67,7 +73,10 @@
 
   <div class="starter-template text-center py-5 px-3">
     <h1>인덱스 페이지 입니다.</h1>
-    <p class="lead">Springboot 2.4.3 security / thymeleaf / Jpa / H2 DB<br></p>
+    <p class="lead">Springboot 2.4.3 security / thymeleaf / Jpa / H2 DB<br>
+    	thymeleaf 메뉴 권한체크 <br>
+    	user, manager, admin, @Secured, @PreAuthorize
+    </p>
   </div>
 
 </main><!-- /.container -->
