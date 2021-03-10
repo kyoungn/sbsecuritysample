@@ -1,11 +1,91 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org"
+		  xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
 <meta charset="UTF-8">
+    <!-- Bootstrap core CSS -->
+<link href="/css/bootstrap.min.css" rel="stylesheet">
+
+    <style>
+      .bd-placeholder-img {
+        font-size: 1.125rem;
+        text-anchor: middle;
+        -webkit-user-select: none;
+        -moz-user-select: none;
+        user-select: none;
+      }
+
+      @media (min-width: 768px) {
+        .bd-placeholder-img-lg {
+          font-size: 3.5rem;
+        }
+      }
+    </style>
+
+    
+    <!-- Custom styles for this template -->
+    <link href="/css/starter-template.css" rel="stylesheet">
 <title>Insert title here</title>
 </head>
 <body>
+
+
+<nav class="navbar navbar-expand-md navbar-dark bg-dark fixed-top">
+  <div class="container-fluid">
+    <a class="navbar-brand" href="#">Navbar</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarsExampleDefault" aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbarsExampleDefault">
+      <ul class="navbar-nav me-auto mb-2 mb-md-0">
+        <li class="nav-item">
+          <a class="nav-link active" aria-current="page" href="#" th:href="@{~/}">Home</a>
+        </li>
+        <li class="nav-item" sec:authorize="isAuthenticated()" >
+          <a class="nav-link" href="#" th:href="@{~/user}">User</a>
+        </li>
+        <li class="nav-item" sec:authorize="hasAnyRole('ROLE_ADMIN', 'ROLE_MANAGER')" >
+          <a class="nav-link" href="#" th:href="@{~/manager}" tabindex="-1" >Manager</a>
+        </li>
+        <li class="nav-item" sec:authorize="hasRole('ROLE_ADMIN')" >
+          <a class="nav-link" href="#" th:href="@{~/admin}" tabindex="-1" >Admin</a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>
+
+
+
 인덱스 페이지입니다.
+<h1>Home Page</h1>
+<div>
+	<ul>
+	<li class="nav-item">
+	    <a class="nav-link" href="#" th:href="@{~/}"><i class="fa fa-home"></i>Home</a>
+	</li>
+	<li sec:authorize="isAuthenticated()" class="nav-item">
+	    <a class="nav-link" href="#" th:href="@{~/user}">User</a>
+	</li>
+	<li sec:authorize="hasRole('ROLE_ADMIN')" class="nav-item">
+	    <a class="nav-link" href="#" th:href="@{~/admin}">Admin</a>
+	</li>
+	<li sec:authorize="hasAnyRole('ROLE_ADMIN', 'ROLE_MANAGER')" class="nav-item">
+	    <a class="nav-link" href="#" th:href="@{~/manager}">Manager</a>
+	</li>
+	</ul>
+</div>
+        <hr>
+        <div>
+            <a sec:authorize="isAnonymous()" th:href="@{/login}">로그인</a>
+            <a sec:authorize="isAuthenticated()" th:href="@{/logout}">로그아웃</a>
+            <a sec:authorize="isAnonymous()" th:href="@{/joinForm}">회원가입</a>
+        </div>
+        <div>
+        	<a th:href="@{/manager}">매니저</a>
+            <a th:href="@{/admin}">관리자</a>
+        </div>
 <p th:text="${name}">####</p>
 </body>
 </html>

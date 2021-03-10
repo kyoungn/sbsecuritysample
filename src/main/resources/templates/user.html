@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+		  xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+<meta charset="UTF-8">
+<title>user</title>
+</head>
+<body>
+
+<div sec:authorize="isAuthenticated()"> <!-- 인증되면 태그 보임-->
+  Name: <span sec:authentication="name">SomeName</span><br /> <!-- Authentication 객체의 "name" property를 반환, 자바로 치면 SecurityContextHolder.getContext().getAuthentication().getName()-->
+  Principal: <span sec:authentication="principal">PrincipalString</span><br />
+  <!--principal 파라메터로 지정한 User 객체가 반환-->
+  <!--SecurityContextHolder.getContext().getAuthentication().getPrincipal()-->
+  Principal.email: <span sec:authentication="principal.email">Email</span><br />
+  <!--((User)SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getEmail()-->
+  HasRole(USER): <span sec:authorize="hasRole('ROLE_USER')">YES</span><br />
+  HasRole(MANAGER): <span sec:authorize="hasRole('ROLE_MANAGER')">YES</span><br />
+  HasRole(ADMIN): <span sec:authorize="hasRole('ROLE_ADMIN')">YES</span><br />
+</div>
+<table>
+    <tr>
+        <td>Username</td>
+        <td><span sec:authentication="name"></span></td>
+    </tr>
+    <tr>
+        <td>Authorities</td>
+        <td><span sec:authentication="authorities"></span></td>
+    </tr>
+</table>
+<a href="#" th:href="@{~/}">Home</a>
+</body>
+</html>

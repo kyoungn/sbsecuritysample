@@ -54,8 +54,8 @@ public class IndexController {
 	}
 	
 	@GetMapping("/user")
-	public @ResponseBody String user() {
-		return "user";
+	public ModelAndView user() {
+		return new ModelAndView("user");
 	}
 	
 	@GetMapping("/admin")

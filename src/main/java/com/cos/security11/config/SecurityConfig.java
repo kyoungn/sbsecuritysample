@@ -29,7 +29,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
 
 	@Override
 	public void configure(WebSecurity webSecurity) throws Exception{
-		webSecurity.ignoring().antMatchers("/css/**", "/images/**");
+		webSecurity.ignoring().antMatchers("/css/**", "/images/**", "/js/**", "/fonts/**");
 	}
 	
 	@Override
@@ -62,7 +62,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
 		
 		http.logout()
 	        .logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
-	        .logoutSuccessUrl("/login")
+	        .logoutSuccessUrl("/")
 	        .invalidateHttpSession(true);
 
 		http.exceptionHandling()
