@@ -52,40 +52,27 @@
           <a class="nav-link" href="#" th:href="@{~/admin}" tabindex="-1" >Admin</a>
         </li>
       </ul>
+      
+	<form class="d-flex">
+        <a sec:authorize="isAnonymous()" th:href="@{/login}">로그인</a>
+            <a sec:authorize="isAuthenticated()" th:href="@{/logout}">로그아웃</a>
+            <a sec:authorize="isAnonymous()" th:href="@{/joinForm}">회원가입</a>
+      </form>
     </div>
   </div>
 </nav>
 
 
+<main class="container">
 
-인덱스 페이지입니다.
-<h1>Home Page</h1>
-<div>
-	<ul>
-	<li class="nav-item">
-	    <a class="nav-link" href="#" th:href="@{~/}"><i class="fa fa-home"></i>Home</a>
-	</li>
-	<li sec:authorize="isAuthenticated()" class="nav-item">
-	    <a class="nav-link" href="#" th:href="@{~/user}">User</a>
-	</li>
-	<li sec:authorize="hasRole('ROLE_ADMIN')" class="nav-item">
-	    <a class="nav-link" href="#" th:href="@{~/admin}">Admin</a>
-	</li>
-	<li sec:authorize="hasAnyRole('ROLE_ADMIN', 'ROLE_MANAGER')" class="nav-item">
-	    <a class="nav-link" href="#" th:href="@{~/manager}">Manager</a>
-	</li>
-	</ul>
-</div>
-        <hr>
-        <div>
-            <a sec:authorize="isAnonymous()" th:href="@{/login}">로그인</a>
-            <a sec:authorize="isAuthenticated()" th:href="@{/logout}">로그아웃</a>
-            <a sec:authorize="isAnonymous()" th:href="@{/joinForm}">회원가입</a>
-        </div>
-        <div>
-        	<a th:href="@{/manager}">매니저</a>
-            <a th:href="@{/admin}">관리자</a>
-        </div>
+  <div class="starter-template text-center py-5 px-3">
+    <h1>인덱스 페이지 입니다.</h1>
+    <p class="lead">Springboot 2.4.3 security / thymeleaf / Jpa / H2 DB<br></p>
+  </div>
+
+</main><!-- /.container -->
+
+
 <p th:text="${name}">####</p>
 </body>
 </html>

@@ -4,12 +4,13 @@ package com.cos.security11.test.controller;
 import java.util.Collections;
 import java.util.Optional;
 
+import org.springframework.security.access.annotation.Secured;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
@@ -101,8 +102,15 @@ public class IndexController {
 		return "권한이 없습니다.";
 	}
 	
-//	@RequestMapping("/error")
-//	public @ResponseBody String error() {
-//		return "error";
-//	}
+	@Secured("ROLE_ADMIN")
+	@GetMapping("/info")
+	public @ResponseBody String info() {
+		return "개인정보.";
+	}
+	
+	@PreAuthorize("hasRole('ROLE_ADMIN') or hasRole('ROLE_MANAGER')")
+	@GetMapping("/data")
+	public @ResponseBody String data() {
+		return "데이터 정보.";
+	}
 }
