@@ -3,10 +3,13 @@ package com.cos.security11.config;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
 @Configuration
 @EnableWebSecurity
@@ -21,6 +24,12 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
 	@Bean
 	public BCryptPasswordEncoder encodePwd() {
 		return new BCryptPasswordEncoder();
+	}
+	
+
+	@Override
+	public void configure(WebSecurity webSecurity) throws Exception{
+		webSecurity.ignoring().antMatchers("/css/**", "/images/**");
 	}
 	
 	@Override
@@ -38,15 +47,26 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
 			.loginProcessingUrl("/loginProc")
 //			.successHandler(successHandler)
 			.defaultSuccessUrl("/")
-			.failureForwardUrl("/error")
-//			.failureHandler(loginFailHandler)
-			.and()
-			.logout()
-			.logoutUrl("/logout")
-			.logoutSuccessUrl("/")
-			.and()
-			.sessionManagement().invalidSessionUrl("/expired")
+//			.failureForwardUrl("/error")
+			.failureHandler(loginFailHandler)
+//			.and()
+//			.logout()
+//			.logoutUrl("/logout")
+//			.logoutSuccessUrl("/")
+//			.and()
+//			.exceptionHandling()
+//			.accessDeniedPage("/error")
+//			.and()
+//			.sessionManagement().invalidSessionUrl("/expired")
 			;
+		
+		http.logout()
+	        .logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
+	        .logoutSuccessUrl("/login")
+	        .invalidateHttpSession(true);
+
+		http.exceptionHandling()
+        	.accessDeniedPage("/denied");
 			
 	}
 }

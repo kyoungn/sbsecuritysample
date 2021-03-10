@@ -4,14 +4,48 @@
 <head>
 <meta charset="UTF-8">
 <title>로그인페이지</title>
+    <!-- Bootstrap core CSS -->
+<link href="/css/bootstrap.min.css" rel="stylesheet">
+
+    <style>
+      .bd-placeholder-img {
+        font-size: 1.125rem;
+        text-anchor: middle;
+        -webkit-user-select: none;
+        -moz-user-select: none;
+        user-select: none;
+      }
+
+      @media (min-width: 768px) {
+        .bd-placeholder-img-lg {
+          font-size: 3.5rem;
+        }
+      }
+    </style>
+
+    
+    <!-- Custom styles for this template -->
+    <link href="/css/signin.css" rel="stylesheet">
 </head>
-<body>
-<h1>로그인페이지</h1>
-<form action="/loginProc" method="post">
-	<input type="text" name="username" placeholder="Username"/><br/>
-	<input type="password" name="password" placeholder="Password"/>
-	<button>로그인</button><br>
-</form>
-<a href="/joinForm">회원가입</a>
-</body>
+<body class="text-center">
+    
+<main class="form-signin">
+  <form action="/loginProc" method="post">
+    <h1 class="h3 mb-3 fw-normal">로그인</h1>
+    <label for="InputUsername" class="visually-hidden">Username</label>
+    <input type="text" id="InputUsername" name="username" class="form-control" placeholder="Username" required autofocus>
+    <label for="inputPassword" class="visually-hidden">Password</label>
+    <input type="password" id="inputPassword" name="password" class="form-control" placeholder="Password" required>
+    <div class="checkbox mb-3">
+      <label>
+        <a href="/joinForm">회원가입하기</a>
+      </label>
+    </div>
+    <button class="w-100 btn btn-lg btn-primary" type="submit">로그인</button>
+    <p class="mt-5 mb-3 text-muted">&copy; 2017–2021</p>
+  </form>
+</main>
+    
+  </body>
+  
 </html>

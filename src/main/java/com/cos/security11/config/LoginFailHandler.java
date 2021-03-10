@@ -11,6 +11,9 @@ import org.springframework.security.web.DefaultRedirectStrategy;
 import org.springframework.security.web.authentication.AuthenticationFailureHandler;
 import org.springframework.stereotype.Component;
 
+import lombok.extern.slf4j.Slf4j;
+
+@Slf4j
 @Component
 public class LoginFailHandler implements AuthenticationFailureHandler {
 
@@ -20,10 +23,11 @@ public class LoginFailHandler implements AuthenticationFailureHandler {
 		
 		String errormsg = exception.getMessage();
 				
-		System.out.println("onAuthenticationFailure :::: " + errormsg);
-		System.out.println("onAuthenticationFailure :::: " + exception);
+		log.info("onAuthenticationFailure ::::  {}", errormsg);
+		log.info("onAuthenticationFailure ::::  {}", exception);
 		
-		new DefaultRedirectStrategy().sendRedirect(request, response, "/loginFail");
+//		new DefaultRedirectStrategy().sendRedirect(request, response, "/login");
+		new DefaultRedirectStrategy().sendRedirect(request, response, "/error");
 	}
 
 }

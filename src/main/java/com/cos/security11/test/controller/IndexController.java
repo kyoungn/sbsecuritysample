@@ -9,6 +9,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
@@ -33,9 +34,7 @@ public class IndexController {
 	
 	@GetMapping("/")
 	public ModelAndView index(Authentication auth) {
-		
-		
-		
+				
 		ModelAndView model = new ModelAndView();
 		model.setViewName("index");
 		
@@ -96,9 +95,14 @@ public class IndexController {
 		
 		return new RedirectView("/login");
 	}
-	
-	@GetMapping("/expired")
+		
+	@GetMapping("/denied")
 	public @ResponseBody String expired() {
-		return "expired";
+		return "권한이 없습니다.";
 	}
+	
+//	@RequestMapping("/error")
+//	public @ResponseBody String error() {
+//		return "error";
+//	}
 }
