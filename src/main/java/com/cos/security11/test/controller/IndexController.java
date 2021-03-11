@@ -8,11 +8,12 @@ import org.springframework.security.access.annotation.Secured;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.view.RedirectView;
 
@@ -24,7 +25,7 @@ import com.cos.security11.security.PrincipalDetail;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
-@RestController
+@Controller
 @Slf4j
 @RequiredArgsConstructor
 public class IndexController {
@@ -34,10 +35,11 @@ public class IndexController {
 	private final BCryptPasswordEncoder bCryptPasswordEncoder;
 	
 	@GetMapping("/")
-	public ModelAndView index(Authentication auth) {
+//	public ModelAndView index(Authentication auth, Model model) {
+	public String index(Authentication auth, Model model) {
 				
-		ModelAndView model = new ModelAndView();
-		model.setViewName("index");
+//		ModelAndView model = new ModelAndView();
+//		model.setViewName("index");
 		
 		String name = "?";
 		if(auth != null) {
@@ -48,10 +50,10 @@ public class IndexController {
 			PrincipalDetail detail = (PrincipalDetail) auth.getPrincipal();
 			name = detail.getUsername();
 		}
-		model.addObject("name", name);
+		model.addAttribute("name", name);
 		
-		return model;
-//		return "index";
+//		return model;
+		return "index";
 	}
 	
 	@GetMapping("/user")
